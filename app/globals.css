@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
+  --background: #000;
   --foreground: #171717;
 }
 
@@ -10,13 +10,80 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-text-primary: #ffffff;
+  --color-gray-100: #666666;
+  --color-input: hsla(0, 0%, 100%, 0.1);
+
+  --animate-fade-in: fade-in 1s ease-out;
+  --animate-gradient: gradient 9s linear infinite;
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+
+  @keyframes shimmer: {
+    0%: {
+      backgroundposition: 100% 50%;
+    }
+    100%: {
+      backgroundposition: 0 50%;
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+      background-image: linear-gradient(-45deg, #ef629f, #42275a);
+    }
+
+    50% {
+      background-position: 100% 50%;
+      background-image: linear-gradient(to bottom, #aa076b, #61045f);
+    }
+
+    100% {
+      background-position: 0% 50%;
+      background-image: linear-gradient(to top, #ef629f, #42275a);
+    }
+  }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .glass-background {
+    @apply border border-white/18 bg-white/15 text-white shadow backdrop-blur-lg;
+  }
+}
+
+.bg-skeleton: {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.12) 25%,
+    rgba(255, 255, 255, 0.18) 37%,
+    rgba(255, 255, 255, 0.12) 63%
+  );
+}
+
+.bg-size-skeleton: {
+  backgroundsize: 400% 100%;
 }
 
 body {
