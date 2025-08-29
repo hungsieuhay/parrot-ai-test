@@ -31,9 +31,10 @@ export const FormSubmit = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     watch,
     reset,
+
     setValue,
   } = useForm<SubmitForm>({
     resolver: zodResolver(formSchema),
@@ -57,11 +58,16 @@ export const FormSubmit = () => {
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [uploadUrl]);
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(undefined, { keepIsSubmitSuccessful: false });
+    }
+  }, [isSubmitSuccessful, reset]);
+
   const onSubmit = async (data: SubmitForm) => {
     try {
       await handleSubmitAnswer({ ...data, point, time });
       addToast('Submit sucessfully', 'success');
-      reset();
     } catch (error) {
       console.log(error);
     }
@@ -76,21 +82,25 @@ export const FormSubmit = () => {
         error={errors.name}
       />
       <div className="flex flex-col items-center gap-4 sm:flex-row">
-        <CustomInput
-          name="point"
-          control={control}
-          placeholder="Score"
-          error={errors.point}
-        />
-        <CustomInput
-          name="time"
-          control={control}
-          placeholder="Time (ms)"
-          error={errors.time}
-        />
+        <div className="w-1/2">
+          <CustomInput
+            name="point"
+            control={control}
+            placeholder="Score"
+            error={errors.point}
+          />
+        </div>
+        <div className="w-1/2">
+          <CustomInput
+            name="time"
+            control={control}
+            placeholder="Time (ms)"
+            error={errors.time}
+          />
+        </div>
       </div>
       <div>
-        <Recoreder />
+        <Recoreder isSubmitSuccessful={isSubmitSuccessful} />
         <CustomInput
           name="audioUrl"
           control={control}

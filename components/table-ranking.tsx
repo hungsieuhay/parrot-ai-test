@@ -4,7 +4,6 @@ import answerApi from '@/api/answer';
 import { Answer } from '@/types';
 import { useEffect, useMemo, useState } from 'react';
 import { Card } from './card';
-import { Car } from 'lucide-react';
 import { Skeleton } from './skeleton';
 
 export const TableRanking = () => {
@@ -39,7 +38,7 @@ export const TableRanking = () => {
   if (loading) {
     return (
       <div className="relative container">
-        <div className="mx-auto mt-12 max-w-lg">
+        <div className="mx-auto mt-36 max-w-lg">
           <div className="rounded-xl bg-white/10 p-6">
             <Skeleton className="mb-6 h-4 w-32 !bg-black/30" />
             <div className="flex max-h-[560px] flex-col gap-4 overflow-auto">
@@ -55,7 +54,7 @@ export const TableRanking = () => {
 
   return (
     <div className="relative container">
-      <div className="mx-auto mt-12 max-w-lg">
+      <div className="mx-auto mt-36 max-w-lg">
         <div className="rounded-xl bg-white/10 p-6">
           <h1 className="mb-6 text-2xl font-medium text-white/80">
             Table rankings

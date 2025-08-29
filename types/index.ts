@@ -24,4 +24,5 @@ export interface AnswerContextType {
   handleSubmitAnswer: (values: AnswerForm) => void;
   setUploadUrl: Dispatch<SetStateAction<string>>;
   uploadUrl: string;
+  showConfetti: boolean;
 }

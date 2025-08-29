@@ -17,6 +17,7 @@
 
   --animate-fade-in: fade-in 1s ease-out;
   --animate-gradient: gradient 9s linear infinite;
+  --animate-confettifall: confettiFall 3s infinite linear;
 
   @keyframes fade-in {
     0% {
@@ -43,6 +44,23 @@
     100% {
       background-position: 0% 50%;
       background-image: linear-gradient(to top, #ef629f, #42275a);
+    }
+  }
+
+  @keyframes confettiFall {
+    0% {
+      opacity: 0;
+      transform: translateY(-100vh) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(100vh) rotate(720deg);
     }
   }
 }

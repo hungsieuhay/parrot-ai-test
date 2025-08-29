@@ -1,8 +1,15 @@
+'use client';
+
 import { FormSubmit } from '@/components/form-submit';
+import { ConfettiAnimation } from '@/motion/conffeti-animation';
+import { useAnswer } from '@/provider/answer-provider';
 
 const AnswerFormPage = () => {
+  const { showConfetti } = useAnswer();
+
   return (
-    <div className="container">
+    <div className="relative container">
+      <ConfettiAnimation isActive={showConfetti} />
       <div className="mx-auto max-w-screen-sm">
         <div className="relative mt-32 flex flex-col items-center text-center">
           <h2 className="font-medium text-white/50 uppercase">Submit Form</h2>

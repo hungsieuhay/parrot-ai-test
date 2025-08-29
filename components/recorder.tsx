@@ -14,7 +14,11 @@ interface AudioRecording {
 const CLOUDINARY_CLOUD_NAME = 'dgkrchato';
 const CLOUDINARY_UPLOAD_PRESET = 'my-upload-preset';
 
-export const Recoreder: React.FC = () => {
+export const Recoreder = ({
+  isSubmitSuccessful,
+}: {
+  isSubmitSuccessful: boolean;
+}) => {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recording, setRecording] = useState<AudioRecording | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -31,17 +35,22 @@ export const Recoreder: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { setUploadUrl } = useAnswer();
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      setRecording(null);
+    }
+  }, [isSubmitSuccessful]);
+
   const uploadToCloudinary = async (audioBlob: Blob) => {
     setIsUploading(true);
     try {
       const formData = new FormData();
       formData.append('file', audioBlob, 'recording.webm');
       formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      formData.append('resource_type', 'video'); // Allows video/audio files
-      formData.append('quality', 'auto');
+      formData.append('resource_type', 'video');
 
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
         {
           method: 'POST',
           body: formData,
@@ -56,9 +65,8 @@ export const Recoreder: React.FC = () => {
 
       const data = await response.json();
       setUploadUrl(
-        `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/f_mp3,so_0/${data.public_id}.mp3`
+        `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/f_mp3,q_50/${data.public_id}.mp3`
       );
-      console.log('Upload successful:', data);
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Upload failed');
       addToast(`${uploadError}`, 'error');

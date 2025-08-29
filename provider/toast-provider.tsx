@@ -30,12 +30,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={{ addToast }}>
       {children}
       {/* Toast container */}
-      <div className="fixed top-4 right-4 z-50 space-y-2 overflow-hidden rounded bg-white">
+      <div className="fixed top-4 right-4 z-50">
         {toasts.map((toast) => (
           <div
             key={toast.id}
             className={clsx(
-              'animate-fade-in flex items-center justify-center border-0 border-l-4 px-4 py-2 shadow-lg',
+              'animate-fade-in flex items-center justify-center rounded border-0 border-l-4 bg-white px-4 py-2 shadow-lg',
               toast.type === 'success' ? 'border-green-500' : '',
               toast.type === 'error' ? 'border-red-500' : '',
               toast.type === 'info' ? 'border-blue-500' : ''

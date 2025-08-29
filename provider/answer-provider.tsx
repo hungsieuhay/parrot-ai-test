@@ -22,10 +22,17 @@ export const useAnswer = () => {
 
 export const AnswerProvider = ({ children }: PropsWithChildren) => {
   const [uploadUrl, setUploadUrl] = useState<string>('');
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const triggerConfetti = () => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 4000);
+  };
 
   const handleSubmitAnswer = useCallback(async (data: AnswerForm) => {
     try {
       await answerApi.postUserAnswer(data);
+      triggerConfetti();
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +44,7 @@ export const AnswerProvider = ({ children }: PropsWithChildren) => {
         handleSubmitAnswer,
         uploadUrl,
         setUploadUrl,
+        showConfetti,
       }}
     >
       {children}

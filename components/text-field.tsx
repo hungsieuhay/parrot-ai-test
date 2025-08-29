@@ -17,7 +17,7 @@ interface CustomInputProps {
 }
 
 // Custom Input Component
-export const CustomInput: React.FC<CustomInputProps> = ({
+export const CustomInput = ({
   name,
   control,
   placeholder,
@@ -25,9 +25,9 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   disabled = false,
   error,
   className,
-}) => {
+}: CustomInputProps) => {
   return (
-    <>
+    <div>
       <Controller
         name={name}
         control={control}
@@ -50,6 +50,6 @@ export const CustomInput: React.FC<CustomInputProps> = ({
       {error && (
         <p className="mt-1 text-start text-sm text-red-600">{error.message}</p>
       )}
-    </>
+    </div>
   );
 };
